@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Inventory</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Scrounge Logo" class="logo">
+    <h1>Manage Inventory</h1>
+    <div class="menu">
+        <h2>Current Inventory</h2>
+        {% if inventory %}
+            <ul>
+                {% for item in inventory %}
+                    <li>{{ item.name }} ({{ item.quantity }}) <a href="/remove_inventory/{{ item.name }}" class="button small">Remove</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No items in inventory.</p>
+        {% endif %}
+        <h2>Add Item</h2>
+        <form method="post" action="/add_inventory">
+            <input type="text" name="item_name" placeholder="Item name" required>
+            <input type="text" name="quantity" placeholder="Quantity" required>
+            <input type="submit" value="Add" class="button">
+        </form>
+        <a href="/" class="button">Back to Main Menu</a>
+    </div>
+</body>
+</html>

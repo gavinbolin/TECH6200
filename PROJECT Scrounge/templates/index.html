@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrounge</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Scrounge Logo" class="logo">
+    <div class="menu">
+        <a href="/inventory" class="button">1. Manage Inventory</a>
+        <a href="/ready_meals" class="button">2. Find Ready-to-Make Meals</a>
+        <a href="/search_recipes" class="button">3. Search New Recipes</a>
+        <a href="/recipe_book" class="button">4. View Recipe Book</a>
+        <a href="/preferences" class="button">5. Set Preferences</a>
+        <a href="/" class="button">6. Exit</a>
+    </div>
+</body>
+</html>
