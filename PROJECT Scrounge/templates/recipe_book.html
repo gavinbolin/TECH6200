@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Scrounge Logo" class="logo">
+    <h1>Recipe Book</h1>
+    <div class="menu">
+        {% if recipes %}
+            <ul>
+                {% for recipe in recipes %}
+                    <li>
+                        <h2>{{ recipe.name }} ({{ recipe.cuisine }})</h2>
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            {% for ing in recipe.ingredients %}
+                                <li>{{ ing.name }} - {{ ing.measure }}</li>
+                            {% endfor %}
+                        </ul>
+                        <h3>Instructions:</h3>
+                        <p>{{ recipe.instructions }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No saved recipes.</p>
+        {% endif %}
+        <br>
+        <a href="/" class="button">Back</a>
+    </div>
+</body>
+</html>

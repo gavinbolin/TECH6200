@@ -14,5 +14,9 @@
     {
         "name": "Salt",
         "quantity": "alot"
+    },
+    {
+        "name": "Banana",
+        "quantity": "yes"
     }
 ]

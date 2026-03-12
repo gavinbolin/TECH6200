@@ -170,39 +170,19 @@ def remove_inventory_route(item_name):
 @app.route("/ready_meals")
 def ready_meals():
     meals = ready_to_make()
-    if meals:
-        meal_list = "<br>".join([f"{mid}: {name}" for mid, name in meals])
-    else:
-        meal_list = "No recipes ready to make with current inventory."
-    return f"<h1>Ready-to-Make Meals</h1><p>{meal_list}</p><a href='/'>Back</a>"
+    return render_template('ready_meals.html', meals=meals)
 
 @app.route("/search_recipes", methods=['GET', 'POST'])
 def search_recipes_route():
     if request.method == 'POST':
         query = request.form['query']
         meals = search_recipes(query)
-        if meals:
-            meal_list = "<br>".join([f"{i+1}: {meal['name']}" for i, meal in enumerate(meals)])
-        else:
-            meal_list = "No meals found."
-        return f"<h1>Search Results</h1><p>{meal_list}</p><a href='/search_recipes'>Search Again</a><a href='/'>Back</a>"
-    return """
-    <h1>Search New Recipes</h1>
-    <form method='post'>
-        Ingredient or name: <input type='text' name='query'>
-        <input type='submit' value='Search'>
-    </form>
-    <a href='/'>Back</a>
-    """
+        return render_template('search_recipes.html', is_post=True, meals=meals)
+    return render_template('search_recipes.html', is_post=False)
 
 @app.route("/recipe_book")
 def recipe_book():
-    recipes = list_saved_recipes()
-    if recipes:
-        recipe_list = "<br>".join([f"{rid}: {name}" for rid, name in recipes])
-    else:
-        recipe_list = "No saved recipes."
-    return f"<h1>Recipe Book</h1><p>{recipe_list}</p><a href='/'>Back</a>"
+    return render_template('recipe_book.html', recipes=recipes_list)
 
 @app.route("/preferences", methods=['GET', 'POST'])
 def preferences():
@@ -218,26 +198,7 @@ def preferences():
             clear_preferences()
         return redirect(url_for('preferences'))
     prefs = get_preferences()
-    pref_list = "<br>".join(prefs) if prefs else "None"
-    return f"""
-    <h1>Preferences</h1>
-    <p>Current: {pref_list}</p>
-    <form method='post'>
-        <input type='hidden' name='action' value='add'>
-        Cuisine: <input type='text' name='cuisine'>
-        <input type='submit' value='Add'>
-    </form>
-    <form method='post'>
-        <input type='hidden' name='action' value='remove'>
-        Cuisine: <input type='text' name='cuisine'>
-        <input type='submit' value='Remove'>
-    </form>
-    <form method='post'>
-        <input type='hidden' name='action' value='clear'>
-        <input type='submit' value='Clear All'>
-    </form>
-    <a href='/'>Back</a>
-    """
+    return render_template('preferences.html', prefs=prefs)
 
 if __name__ == "__main__":
     app.run(debug=True)
