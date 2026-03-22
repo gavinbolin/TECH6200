@@ -8,7 +8,17 @@
 </head>
 <body>
     <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Scrounge Logo" class="logo">
+    <p>Logged in as <strong>{{ session['username'] }}</strong> <a href="/logout" class="button small">Logout</a></p>
     <h1>Recipe Book</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-message">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
     <div class="menu">
         {% if recipes %}
             <ul>
@@ -23,6 +33,7 @@
                         </ul>
                         <h3>Instructions:</h3>
                         <p>{{ recipe.instructions }}</p>
+                        <a href="/remove_recipe/{{ recipe.id }}" class="button small">Remove Recipe</a>
                     </li>
                 {% endfor %}
             </ul>

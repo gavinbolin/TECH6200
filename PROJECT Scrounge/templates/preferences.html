@@ -8,6 +8,7 @@
 </head>
 <body>
     <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Scrounge Logo" class="logo">
+    <p>Logged in as <strong>{{ session['username'] }}</strong> <a href="/logout" class="button small">Logout</a></p>
     <h1>Preferences</h1>
     <div class="menu">
         <p>Current: 

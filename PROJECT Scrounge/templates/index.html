@@ -8,13 +8,11 @@
 </head>
 <body>
     <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Scrounge Logo" class="logo">
+    <p>Welcome, <strong>{{ session['username'] }}</strong>! <a href="/logout" class="button small">Logout</a></p>
     <div class="menu">
-        <a href="/inventory" class="button">1. Manage Inventory</a>
-        <a href="/ready_meals" class="button">2. Find Ready-to-Make Meals</a>
-        <a href="/search_recipes" class="button">3. Search New Recipes</a>
-        <a href="/recipe_book" class="button">4. View Recipe Book</a>
-        <a href="/preferences" class="button">5. Set Preferences</a>
-        <a href="/" class="button">6. Exit</a>
+        {% for option in menu_options %}
+            <a href="{{ option.url }}" class="button">{{ option.text }}</a>
+        {% endfor %}
     </div>
 </body>
 </html>
