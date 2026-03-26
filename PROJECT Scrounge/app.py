@@ -5,13 +5,23 @@ import json
 import os
 import functools
 
+# Load environment variables from .env file if it exists
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
 # Import models and API blueprint
 from models import db, User, decrypt, add_inventory, _find_inventory_item, remove_inventory, update_inventory, list_inventory, save_recipe, remove_recipe, get_recipe_details, ready_to_make, set_preference, get_preferences, remove_preference, clear_preferences, search_recipes
 from api import api_bp
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'change_this_in_production_please')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///scrounge.db'
+secret_key = os.environ.get('SECRET_KEY')
+if not secret_key:
+    raise ValueError("SECRET_KEY environment variable is required")
+app.secret_key = secret_key
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'sqlite:///scrounge.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
@@ -215,4 +225,5 @@ def preferences():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(debug=debug)

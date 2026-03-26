@@ -8,17 +8,13 @@ db = SQLAlchemy()
 # ---------------------------------------------------------------------------
 # Encryption helpers
 # ---------------------------------------------------------------------------
-def _get_or_create_fernet_key():
-    key_file = '.fernet_key'
-    if os.path.exists(key_file):
-        with open(key_file, 'rb') as f:
-            return f.read().strip()
-    key = Fernet.generate_key()
-    with open(key_file, 'wb') as f:
-        f.write(key)
-    return key
+def _load_fernet_key():
+    key = os.environ.get('FERNET_KEY')
+    if not key:
+        raise ValueError("FERNET_KEY environment variable is required")
+    return key.encode()
 
-_fernet = Fernet(_get_or_create_fernet_key())
+_fernet = Fernet(_load_fernet_key())
 
 def encrypt(value):
     if value is None:
