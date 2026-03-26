@@ -21,7 +21,9 @@ secret_key = os.environ.get('SECRET_KEY')
 if not secret_key:
     raise ValueError("SECRET_KEY environment variable is required")
 app.secret_key = secret_key
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI', 'sqlite:///scrounge.db')
+# Database configuration - use DATABASE_URL (Heroku) or DATABASE_URI (local)
+database_url = os.environ.get('DATABASE_URL') or os.environ.get('DATABASE_URI', 'sqlite:///scrounge.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Session security configuration
