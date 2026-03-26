@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ready-to-Make Meals</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="Scrounge Logo" class="logo">
+    <p>Logged in as <strong>{{ session['username'] }}</strong> <a href="/logout" class="button small">Logout</a></p>
+    <h1>Ready-to-Make Meals</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-message">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="menu">
+        {% if meals %}
+            {% for meal in meals %}
+                <div class="recipe-card">
+                    <h3>{{ meal.name }}</h3>
+                    <p><strong>Cuisine:</strong> {{ meal.cuisine }}</p>
+                    <p><strong>Ingredients:</strong></p>
+                    <ul>
+                        {% for ing in meal.ingredients %}
+                            <li>{{ ing.name }} {{ ing.measure }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p><strong>Instructions:</strong> {{ meal.instructions }}</p>
+                    <form method="post" action="/save_recipe" style="display: inline;">
+                        <input type="hidden" name="name" value="{{ meal.name }}">
+                        <input type="hidden" name="ingredients" value='{{ meal.ingredients | tojson | safe }}'>
+                        <input type="hidden" name="instructions" value="{{ meal.instructions }}">
+                        <input type="hidden" name="cuisine" value="{{ meal.cuisine }}">
+                        <input type="hidden" name="source" value="{{ meal.source }}">
+                        <input type="submit" value="Save Recipe" class="button">
+                    </form>
+                </div>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p>No recipes ready to make with current inventory.</p>
+        {% endif %}
+        <br>
+        <a href="/" class="button">Back</a>
+    </div>
+</body>
+</html>

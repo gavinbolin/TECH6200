@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 25%, #fd79a8 50%, #fdcb6e 75%, #e17055 100%); /* warm gradient */
+    color: #333; /* neutral dark gray */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+.logo {
+    width: 200px;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+h1 {
+    color: #e17055;
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+.button {
+    background: linear-gradient(135deg, #ff9f43 0%, #ee5a24 100%);
+    color: white;
+    text-decoration: none;
+    padding: 18px 20px;
+    font-size: 16px;
+    border-radius: 12px;
+    text-align: center;
+    display: block;
+    margin: 10px 0;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.button:hover {
+    background: linear-gradient(135deg, #ffa726 0%, #f4511e 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.button.small {
+    padding: 8px 12px;
+    font-size: 14px;
+    display: inline-block;
+    margin: 0 5px;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.button.small:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+input[type="text"], input[type="password"], input[type="submit"] {
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin: 5px 0;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #ff6600;
+    box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
+    outline: none;
+}
+input[type="submit"] {
+    cursor: pointer;
+    font-weight: bold;
+}
+label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+li .button.small {
+    margin-top: 10px;
+}
